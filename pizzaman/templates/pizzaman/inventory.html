@@ -1,0 +1,27 @@
+{% extends 'pizzaman\base.html' %} 
+
+{% block body %}
+
+<table class="table table-striped">
+    <tr>
+        <th> Item  </th>
+        <th> Quantity on Hand  </th>
+        <th>  Unit of Measure </th>
+        <th> Cost  </th>
+    </tr>
+    {% for itm in object_list %}
+        <tr>
+            <td> {{ itm.item }}</td>
+            <td> {{ itm.amount_on_hand }}</td>
+            <td> {{ itm.unit_measure }}</td>
+            <td> {{ itm.cost_uom }}</td>
+            
+
+        </tr>
+
+    {% endfor %}
+
+
+</table>
+
+{% endblock %}

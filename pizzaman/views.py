@@ -5,6 +5,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
+from django.views.generic import ListView
+from .forms import *
 
 
 # Create your views here.
@@ -14,3 +16,7 @@ def home(request):
 
 def about(request):
     return render(request, 'pizzaman\\about.html')
+
+class InventoryListView(ListView):
+    template_name= "pizzaman/inventory.html"
+    model= Inventory
