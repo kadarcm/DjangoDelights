@@ -1,6 +1,7 @@
 from django.db import models
+from django.conf import settings
 from datetime import datetime as dt
-from django.contrib.auth.models import User
+
 
 # Create your models here.
 class Inventory(models.Model):
@@ -27,14 +28,14 @@ class Sales(models.Model):
 class Menue_Item(models.Model):
     entree =models.CharField(primary_key =True, max_length=50)
     price =models.FloatField(null=False)
-    created_by =models.ForeignKey(User)
+    created_by =models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.SET_NULL, null=True)
 
     def __str__(self):
         return f'{self.entree} priced at {self.price}'
 
 class Recipe_list(models.Model):
-    entree =models.ForeignKey(Menue_Item)
-    inventory =models.ForeignKey(Inventory)
+    entree =models.ForeignKey(Menue_Item, on_delete =models.CASCADE)
+    inventory =models.ForeignKey(Inventory, on_delete = models.CASCADE)
     recipe_amount_used = models.FloatField(null=False)
 
     def __str__(self):
@@ -43,7 +44,7 @@ class Recipe_list(models.Model):
 
 class SalesLines(models.Model):
     transaction_id= models.ForeignKey(Sales, on_delete =models.CASCADE)
-    entree =models.ForeignKey(Inventory)
+    entree =models.ForeignKey(Inventory, on_delete = models.SET_NULL, null=True)
 
     def __str__(self):
         return f'{self.transaction_id} item {self.entree}'
