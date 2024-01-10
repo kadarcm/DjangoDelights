@@ -1,0 +1,24 @@
+{% extends 'pizzaman\base.html' %} 
+
+{% block body %}
+
+<h2 class="text-center">Add Inventory Item</h2>
+
+<form action="" method="post" class="text-center w-25 mx-auto">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group p-3 border">
+            {{ field.errors }}
+            {{ field.label_tag }} <br> {{ field }}
+            {% if field.help_text %}
+              <p class="help" id="{{ field.auto_id }}_helptext">
+                {{ field.help_text|safe }}
+              </p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <input  type="submit" value="Submit">
+    </form>
+
+
+{% endblock %}

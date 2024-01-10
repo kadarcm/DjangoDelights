@@ -11,7 +11,7 @@
     </tr>
     {% for itm in object_list %}
         <tr>
-            <td> {{ itm.item }}</td>
+            <td> <a href="{% url 'inv_update' itm.pk %}">{{ itm.item }}</a></td>
             <td> {{ itm.amount_on_hand }}</td>
             <td> {{ itm.unit_measure }}</td>
             <td> {{ itm.cost_uom }}</td>
