@@ -1,0 +1,35 @@
+{% extends 'pizzaman\base.html' %} 
+
+{% block body %}
+
+<h2>{{ entree }}</h2>
+
+<table>
+    <tr>
+        <th>Ingreedient</th>
+        <th>Amount</th>
+    </tr>
+    {% for ind in recipe_itms %}
+    <tr>
+        <td>{{ ind.inventory.item }}</td>
+        <td>{{ ind.recipe_amount_used }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<form action="" method="post">
+    {% csrf_token %}
+<label>ingreedient: <input type="text" list="ingredient" name="inventory" /></label>
+
+<datalist id="ingredient">
+    {% for itm in inventory %}
+    <option value="{{itm.item}}">
+    {% endfor %}
+</datalist> 
+
+<label>amount: <input type="float"  name="recipe_amount_used" /></label>
+
+<input  type="submit" value="Submit">
+
+</form>
+{% endblock %}

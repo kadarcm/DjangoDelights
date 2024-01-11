@@ -50,3 +50,21 @@ class UpdateMenuView(UpdateView):
     model =MenueItem
     form_class = UpdateMenuF
     success_url = reverse_lazy('menu_list')
+
+def menu_recipe(request, menu_pk):
+    context= {'recipe_itms': Recipe_list.objects.filter(entree=menu_pk).all()}
+    context['inventory'] = list(Inventory.objects.all())
+    context['form']= CreateRecipeItem()
+    context['entree']=menu_pk
+    if request.method == "POST":
+        form = CreateRecipeItem(request.POST)
+      
+        if form.is_valid():
+            new_item =Recipe_list()
+            new_item.entree = MenueItem.objects.filter(entree= menu_pk).first()
+            new_item.inventory=form.cleaned_data['inventory']
+            new_item.recipe_amount_used=form.cleaned_data['recipe_amount_used']
+            new_item.save()
+        form.clean()
+    
+    return render(request, template_name='pizzaman\\recipe.html', context=context)

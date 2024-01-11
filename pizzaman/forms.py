@@ -25,3 +25,10 @@ class UpdateMenuF(forms.ModelForm):
     class Meta():
         model = MenueItem
         fields =['price']
+
+class CreateRecipeItem(forms.ModelForm):
+    title=""
+    class Meta():
+        model =Recipe_list
+        fields =['inventory', 'recipe_amount_used']
+    

@@ -10,4 +10,5 @@ path("inventory/<pk>/update", UpdateIventoryView.as_view(), name="inv_update"),
 path("menu", MenuListView.as_view(), name="menu_list"),
 path("menu/<pk>/update", UpdateMenuView.as_view(), name="menu_update"),
 path("menu_add", CreateMenueView.as_view(), name="menu_add"),
+path("recipe/<menu_pk>", menu_recipe, name="recipe_add"),
 ]

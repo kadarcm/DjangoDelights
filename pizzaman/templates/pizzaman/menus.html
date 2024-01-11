@@ -7,12 +7,14 @@
         <th> Entree  </th>
         <th> Price </th>
         <th>  Created by </th>
+        <th> Recipe Link</th>
     </tr>
     {% for itm in object_list %}
         <tr>
             <td> <a href="{% url 'menu_update' itm.pk %}">{{ itm.entree }}</a></td>
             <td> {{ itm.price }}</td>
             <td> {{ itm.created_by }}</td>
+            <td> <a href="{% url 'recipe_add' itm.pk %}">Recipe</a></td>
 
             </tr>
 
