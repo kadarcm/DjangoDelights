@@ -24,13 +24,13 @@ class InventoryListView(ListView):
     model= Inventory
 
 class CreateIventoryView(CreateView):
-    template_name ="pizzaman/inventory_add.html"
+    template_name ="pizzaman/general_form.html"
     model =Inventory
     form_class = CretateInventoryF
     success_url = reverse_lazy('inv_list')
 
 class UpdateIventoryView(UpdateView):
-    template_name ="pizzaman/inventory_update.html"
+    template_name ="pizzaman/general_form.html"
     model =Inventory
     form_class = UpdateInventoryF
     success_url = reverse_lazy('inv_list')
