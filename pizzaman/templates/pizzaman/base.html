@@ -30,9 +30,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'inv_list' %}">Current Invnetory</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Update Inventory</a></li>
-                  <li><hr class="dropdown-divider"></li>                  
+                  <li><hr class="dropdown-divider"></li>                
                   <li><a class="dropdown-item" href="{% url 'inv_add' %}">Add Inventory Item</a></li>
                 </ul>
               </li>
@@ -55,11 +53,10 @@
                   Menue
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Current Menu</a></li>
+                  <li><a class="dropdown-item" href="{% url 'menu_list' %}">Current Menu</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Add Menu Item</a></li>
-                  <li><hr class="dropdown-divider"></li>                  
-                  <li><a class="dropdown-item" href="#">Update Menu Item</a></li>
+                  <li><a class="dropdown-item" href="{% url 'menu_add' %}">Add Menu Item</a></li>             
+                  
                 </ul>
               </li>
             </ul>

@@ -34,3 +34,19 @@ class UpdateIventoryView(UpdateView):
     model =Inventory
     form_class = UpdateInventoryF
     success_url = reverse_lazy('inv_list')
+
+class MenuListView(ListView):
+    template_name= "pizzaman/menus.html"
+    model= MenueItem
+
+class CreateMenueView(CreateView):
+    template_name ="pizzaman/general_form.html"
+    model =MenueItem
+    form_class = CreateMenueF
+    success_url = reverse_lazy('menu_list')
+
+class UpdateMenuView(UpdateView):
+    template_name ="pizzaman/general_form.html"
+    model =MenueItem
+    form_class = UpdateMenuF
+    success_url = reverse_lazy('menu_list')

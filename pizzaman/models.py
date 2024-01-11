@@ -25,7 +25,7 @@ class Sales(models.Model):
     def __str__(self):
         return f'{self.transaction_id} for {self.total_amount} on {self.dt}'
 
-class Menue_Item(models.Model):
+class MenueItem(models.Model):
     entree =models.CharField(primary_key =True, max_length=50)
     price =models.FloatField(null=False)
     created_by =models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.SET_NULL, null=True)
@@ -34,7 +34,7 @@ class Menue_Item(models.Model):
         return f'{self.entree} priced at {self.price}'
 
 class Recipe_list(models.Model):
-    entree =models.ForeignKey(Menue_Item, on_delete =models.CASCADE)
+    entree =models.ForeignKey(MenueItem, on_delete =models.CASCADE)
     inventory =models.ForeignKey(Inventory, on_delete = models.CASCADE)
     recipe_amount_used = models.FloatField(null=False)
 
