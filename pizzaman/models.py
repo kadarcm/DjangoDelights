@@ -18,9 +18,12 @@ class Inventory(models.Model):
         return f'{self.item} {self.amount_on_hand} {self.unit_measure}'
 
 class Sales(models.Model):
-    transaction_id =models.BigIntegerField(primary_key=True)
-    total_amount= models.FloatField(null =False)
-    dt =models.DateTimeField(default= dt.now)
+    sale_status= (("open","o"), ("closed","c"), ("canceled","x"), ("didnt pay","r"))
+    transaction_id =models.BigAutoField(primary_key=True)
+    total_amount= models.FloatField(default = 0)
+    dt =models.DateTimeField(default= dt.now, db_index=True)
+    status = models.CharField(max_length=20, choices= sale_status, db_index=True, default='o')
+
 
     def __str__(self):
         return f'{self.transaction_id} for {self.total_amount} on {self.dt}'
@@ -43,8 +46,10 @@ class Recipe_list(models.Model):
 
 
 class SalesLines(models.Model):
+    line_id = models.BigAutoField(primary_key=True, default=0)
     transaction_id= models.ForeignKey(Sales, on_delete =models.CASCADE)
     entree =models.ForeignKey(Inventory, on_delete = models.SET_NULL, null=True)
+    qty =models.IntegerField(default =0)
 
     def __str__(self):
         return f'{self.transaction_id} item {self.entree}'

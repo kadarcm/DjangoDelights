@@ -1,0 +1,21 @@
+{% extends 'pizzaman\base.html' %} 
+
+{% block body %}
+
+<table class="table table-striped">
+<tr>
+    <th>Menu Item</th>
+    <th>Quantity</th>
+
+</tr>
+{% for itm in entrees %}
+<tr>
+    <td>{{ itm.entree }}</td>
+    <td>{{ itm.qty }}</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

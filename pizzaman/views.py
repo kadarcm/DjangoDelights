@@ -68,3 +68,12 @@ def menu_recipe(request, menu_pk):
         form.clean()
     
     return render(request, template_name='pizzaman\\recipe.html', context=context)
+
+def sale_view(request):
+    curent_sale = Sales.objects.filter(status='o').first()
+    if not curent_sale  :
+        curent_sale= Sales()
+        curent_sale.save()
+    context={'sales':curent_sale, "entrees":list(curent_sale.saleslines_set.all())}
+    print(context)
+    return render(request, template_name="pizzaman/sale.html", context=context)

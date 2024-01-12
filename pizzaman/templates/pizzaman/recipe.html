@@ -4,21 +4,25 @@
 
 <h2>{{ entree }}</h2>
 
-<table>
+<table class="table table-striped">
     <tr>
         <th>Ingreedient</th>
         <th>Amount</th>
+        <th>unit of menasure </th>
     </tr>
     {% for ind in recipe_itms %}
     <tr>
         <td>{{ ind.inventory.item }}</td>
         <td>{{ ind.recipe_amount_used }}</td>
+        <td> {{ ind.inventory.unit_measure }} </td>
     </tr>
     {% endfor %}
 </table>
-
-<form action="" method="post">
+<hr>
+<h2>Add Ingreedient</h2>
+<form action="" method="post" class="text-center w-25 mx-auto">
     {% csrf_token %}
+<p>
 <label>ingreedient: <input type="text" list="ingredient" name="inventory" /></label>
 
 <datalist id="ingredient">
@@ -26,10 +30,11 @@
     <option value="{{itm.item}}">
     {% endfor %}
 </datalist> 
+</p>
 
-<label>amount: <input type="float"  name="recipe_amount_used" /></label>
+<p><label>amount: <input type="float"  name="recipe_amount_used" /></label></p>
 
-<input  type="submit" value="Submit">
+<p><input  type="submit" value="Submit"></p>
 
 </form>
 {% endblock %}
