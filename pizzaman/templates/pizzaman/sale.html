@@ -24,8 +24,16 @@
 </tr>
 {% endfor %}
 
+<tr>
+    <td><a href="{% url 'complete_sale' sales.transaction_id %}" class="btn btn-success">Complete Sale</a>
+        <a href="{% url 'cancel_sale' sales.transaction_id %}" class="btn btn-warning">Cancel Sale</a></td>
+    <th colspan="2">Total Bill</th> <th> {{ sales.calculate_sale_total }}</th> 
+
+</tr>
 </table>
-<hr>
+
+<br><hr><br>
+
 <h3>Add Menu Items</h3>
 <table class="table table-striped" >
     <tr>

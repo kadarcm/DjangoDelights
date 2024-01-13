@@ -28,6 +28,20 @@ class Sales(models.Model):
     def __str__(self):
         return f'{self.transaction_id} for {self.total_amount} on {self.dt}'
     
+    def calculate_sale_total(self):
+        tax_rate=.08
+        line_items = self.saleslines_set.all()
+        total=0
+        for itm in line_items:
+            total += itm.entree.price * itm.qty
+        total = round(total * (1+ tax_rate ),2) 
+        return total
+    
+    def line_item_consume(self):
+        sales_lines = self.saleslines_set.all()
+        for line in sales_lines:
+            line.entree.inventory_consume(line.qty)
+    
 
 class MenueItem(models.Model):
     entree =models.CharField(primary_key =True, max_length=50)
@@ -36,6 +50,14 @@ class MenueItem(models.Model):
 
     def __str__(self):
         return f'{self.entree} priced at {self.price}'
+    
+    def inventory_consume(self, qty):
+        list_ingredients =self.recipe_list_set.all()
+        for ingredient in list_ingredients:
+            ingredient.inventory.amount_on_hand -= ingredient.recipe_amount_used *qty
+            ingredient.inventory.save()
+
+
 
 class Recipe_list(models.Model):
     entree =models.ForeignKey(MenueItem, on_delete =models.CASCADE)
