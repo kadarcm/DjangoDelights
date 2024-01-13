@@ -100,8 +100,10 @@ def cancel_sale(request, pk):
 
 def complete_sale(request, pk):
     current_sale=Sales.objects.filter( transaction_id =pk).first()
-    # current_sale.sale_status='c'
+    current_sale.sale_status='c'
     current_sale.total_amount=current_sale.calculate_sale_total()
+    if current_sale.total_amount ==0:
+        return redirect('home')
     current_sale.save()
     current_sale.line_item_consume()
 

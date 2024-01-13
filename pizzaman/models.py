@@ -65,7 +65,7 @@ class Recipe_list(models.Model):
     recipe_amount_used = models.FloatField(null=False)
 
     def __str__(self):
-        return f'{self.entree} {self.inventory}'
+        return f'{self.entree.entree} {self.inventory.item} {self.recipe_amount_used}'
 
 
 class SalesLines(models.Model):
