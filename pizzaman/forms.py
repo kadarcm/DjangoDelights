@@ -26,9 +26,16 @@ class UpdateMenuF(forms.ModelForm):
         model = MenueItem
         fields =['price']
 
-class CreateRecipeItem(forms.ModelForm):
+class CreateRecipeItemF(forms.ModelForm):
     title=""
     class Meta():
         model =Recipe_list
         fields =['inventory', 'recipe_amount_used']
+
+class CreateSaleItemF(forms.Form):
+    trans_id= forms.IntegerField()
+    entree =forms.CharField(max_length=50)
+    qty=forms.IntegerField()
+
+    
     

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
@@ -54,10 +54,10 @@ class UpdateMenuView(UpdateView):
 def menu_recipe(request, menu_pk):
     context= {'recipe_itms': Recipe_list.objects.filter(entree=menu_pk).all()}
     context['inventory'] = list(Inventory.objects.all())
-    context['form']= CreateRecipeItem()
+    context['form']= CreateRecipeItemF()
     context['entree']=menu_pk
     if request.method == "POST":
-        form = CreateRecipeItem(request.POST)
+        form = CreateRecipeItemF(request.POST)
       
         if form.is_valid():
             new_item =Recipe_list()
@@ -74,6 +74,22 @@ def sale_view(request):
     if not curent_sale  :
         curent_sale= Sales()
         curent_sale.save()
-    context={'sales':curent_sale, "entrees":list(curent_sale.saleslines_set.all())}
-    print(context)
+    menu=list(MenueItem.objects.all())
+    context={'sales':curent_sale, "entrees":list(curent_sale.saleslines_set.all()), 'menu':menu}
     return render(request, template_name="pizzaman/sale.html", context=context)
+
+def sale_add_item(request):
+    if request.method == 'POST':
+        form = CreateSaleItemF(request.POST)
+        if form.is_valid():
+            new_item=SalesLines()
+            new_item.transaction_id= Sales.objects.filter(transaction_id = form.cleaned_data['trans_id']).first()
+            new_item.entree = MenueItem.objects.filter(entree= form.cleaned_data['entree']).first()
+            new_item.qty = form.cleaned_data['qty']
+            new_item.save()
+    return redirect('sale_add')
+
+def sale_remove_item(request, pk):
+    print(pk)
+    SalesLines.objects.filter(line_id=pk).first().delete()
+    return redirect('sale_add')

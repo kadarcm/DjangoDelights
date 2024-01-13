@@ -2,20 +2,53 @@
 
 {% block body %}
 
+<h1>Transaction ID: {{sales.transaction_id}}</h1>
+
 <table class="table table-striped">
 <tr>
     <th>Menu Item</th>
+    <th>Price</th>
     <th>Quantity</th>
+    <th>Line Total</th>
+    <th>Remove</th>
 
 </tr>
 {% for itm in entrees %}
 <tr>
-    <td>{{ itm.entree }}</td>
+    <td>{{ itm.entree.entree }}</td>
+    <td>{{ itm.entree.price }}</td>
     <td>{{ itm.qty }}</td>
+    <td>{{ itm.line_total }}</td>
+    <td> <a href="{% url 'sale_remove_item' itm.line_id %}" class="btn btn-danger">Remove</a></td>
 
 </tr>
 {% endfor %}
 
 </table>
+<hr>
+<h3>Add Menu Items</h3>
+<table class="table table-striped" >
+    <tr>
+        <th>Entree</th>
+        <th>Quantity</th>
+        <th> Add it</th>
+    </tr>
+    {% for entre in menu %}
+    <tr>
+        <form action="{% url 'sale_add_item' %}" method="POST">
+            {% csrf_token %}
+        <td> <label>{{ entre.entree }}</label> </td>
+        <input type="hidden" name="trans_id" value="{{ sales.transaction_id}}">
+        <input type="hidden" name="entree" value="{{ entre.entree}}">
+        <td> <label>Qty<input type="number" name="qty"></label> </td>
+        <td>  <input type="submit" value="Add to Bill" class="btn btn-success"> </td>
+        </form>
+    </tr>
+
+    {% endfor %}
+
+</table>
 
 {% endblock %}
+
+

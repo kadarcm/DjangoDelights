@@ -27,6 +27,7 @@ class Sales(models.Model):
 
     def __str__(self):
         return f'{self.transaction_id} for {self.total_amount} on {self.dt}'
+    
 
 class MenueItem(models.Model):
     entree =models.CharField(primary_key =True, max_length=50)
@@ -48,8 +49,11 @@ class Recipe_list(models.Model):
 class SalesLines(models.Model):
     line_id = models.BigAutoField(primary_key=True, default=0)
     transaction_id= models.ForeignKey(Sales, on_delete =models.CASCADE)
-    entree =models.ForeignKey(Inventory, on_delete = models.SET_NULL, null=True)
+    entree =models.ForeignKey(MenueItem, on_delete = models.SET_NULL, null=True)
     qty =models.IntegerField(default =0)
 
     def __str__(self):
         return f'{self.transaction_id} item {self.entree}'
+    
+    def line_total(self):
+        return self.qty * self.entree.price
