@@ -1,0 +1,25 @@
+{% extends 'pizzaman\base.html' %} 
+
+{% block body %}
+
+<table class="table table-striped">
+<tr>
+    <th>Transation ID</th>
+    <th> Date Time</th>
+    <th> Total amount</th>
+</tr>
+{% for sale in sales %}
+<tr>
+    <td>{{ sale.transaction_id }}</td>
+    <td>{{ sale.created_dt }}</td>
+    <td>{{ sale.total_amount }}</td>
+</tr>
+
+{% endfor %}
+</table>
+
+
+
+{% endblock %}
+
+

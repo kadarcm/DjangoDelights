@@ -15,5 +15,6 @@ path("sale", sale_view, name='sale_add'),
 path("sale_add_item", sale_add_item, name="sale_add_item"),
 path("sale_del_item/<pk>", sale_remove_item, name= 'sale_remove_item'),
 path("sale_complete/<pk>", complete_sale, name="complete_sale"),
-path("sale_cancel/<pk>", cancel_sale, name="cancel_sale")
+path("sale_cancel/<pk>", cancel_sale, name="cancel_sale"),
+path('todays_sales', todays_sales, name='todays_sales'),
 ]

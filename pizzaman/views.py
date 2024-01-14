@@ -1,3 +1,5 @@
+
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -106,7 +108,7 @@ def cancel_sale(request, pk):
 @login_required()
 def complete_sale(request, pk):
     current_sale=Sales.objects.filter( transaction_id =pk).first()
-    current_sale.sale_status='c'
+    current_sale.status='c'
     current_sale.total_amount=current_sale.calculate_sale_total()
     if current_sale.total_amount ==0:
         return redirect('home')
@@ -114,3 +116,9 @@ def complete_sale(request, pk):
     current_sale.line_item_consume()
 
     return redirect('home')
+
+def todays_sales(request):
+    sales=list(Sales.objects.filter(created_dt__gt= timezone.datetime.today().replace(hour=0,minute=0,second=0,microsecond=0)).all())
+    context={'sales':sales}
+      
+    return render(request=request, template_name='pizzaman/today_sales.html', context=context)

@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from datetime import datetime as dt
+from datetime import datetime 
 
 
 # Create your models here.
@@ -21,7 +21,7 @@ class Sales(models.Model):
     sale_status= (("open","o"), ("closed","c"), ("canceled","x"), ("didnt pay","r"))
     transaction_id =models.BigAutoField(primary_key=True)
     total_amount= models.FloatField(default = 0)
-    dt =models.DateTimeField(default= dt.now, db_index=True)
+    created_dt =models.DateTimeField(default= datetime.now, db_index=True)
     status = models.CharField(max_length=20, choices= sale_status, db_index=True, default='o')
 
 
@@ -41,6 +41,7 @@ class Sales(models.Model):
         sales_lines = self.saleslines_set.all()
         for line in sales_lines:
             line.entree.inventory_consume(line.qty)
+    
     
 
 class MenueItem(models.Model):
