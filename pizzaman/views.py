@@ -118,7 +118,9 @@ def complete_sale(request, pk):
     return redirect('home')
 
 def todays_sales(request):
-    sales=list(Sales.objects.filter(created_dt__gt= timezone.datetime.today().replace(hour=0,minute=0,second=0,microsecond=0)).all())
+    sales=list(Sales.objects.filter(
+        created_dt__gt= timezone.datetime.today().replace(hour=0,minute=0,second=0,microsecond=0)).filter(
+        status='c' ).all())
     context={'sales':sales}
       
     return render(request=request, template_name='pizzaman/today_sales.html', context=context)
