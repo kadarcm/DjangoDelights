@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
+# from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -23,13 +23,13 @@ class InventoryListView(ListView):
     template_name= "pizzaman/inventory.html"
     model= Inventory
 
-class CreateIventoryView(CreateView):
+class CreateIventoryView(LoginRequiredMixin, CreateView):
     template_name ="pizzaman/general_form.html"
     model =Inventory
     form_class = CretateInventoryF
     success_url = reverse_lazy('inv_list')
 
-class UpdateIventoryView(UpdateView):
+class UpdateIventoryView(LoginRequiredMixin, UpdateView):
     template_name ="pizzaman/general_form.html"
     model =Inventory
     form_class = UpdateInventoryF
@@ -39,18 +39,19 @@ class MenuListView(ListView):
     template_name= "pizzaman/menus.html"
     model= MenueItem
 
-class CreateMenueView(CreateView):
+class CreateMenueView(LoginRequiredMixin, CreateView):
     template_name ="pizzaman/general_form.html"
     model =MenueItem
     form_class = CreateMenueF
     success_url = reverse_lazy('menu_list')
 
-class UpdateMenuView(UpdateView):
+class UpdateMenuView(LoginRequiredMixin, UpdateView):
     template_name ="pizzaman/general_form.html"
     model =MenueItem
     form_class = UpdateMenuF
     success_url = reverse_lazy('menu_list')
 
+@login_required()
 def menu_recipe(request, menu_pk):
     context= {'recipe_itms': Recipe_list.objects.filter(entree=menu_pk).all()}
     context['inventory'] = list(Inventory.objects.all())
@@ -69,6 +70,7 @@ def menu_recipe(request, menu_pk):
     
     return render(request, template_name='pizzaman\\recipe.html', context=context)
 
+@login_required()
 def sale_view(request):
     curent_sale = Sales.objects.filter(status='o').first()
     if not curent_sale  :
@@ -78,6 +80,7 @@ def sale_view(request):
     context={'sales':curent_sale, "entrees":list(curent_sale.saleslines_set.all()), 'menu':menu}
     return render(request, template_name="pizzaman/sale.html", context=context)
 
+@login_required()
 def sale_add_item(request):
     if request.method == 'POST':
         form = CreateSaleItemF(request.POST)
@@ -89,15 +92,18 @@ def sale_add_item(request):
             new_item.save()
     return redirect('sale_add')
 
+@login_required()
 def sale_remove_item(request, pk):
     print(pk)
     SalesLines.objects.filter(line_id=pk).first().delete()
     return redirect('sale_add')
 
+@login_required()
 def cancel_sale(request, pk):
     Sales.objects.filter( transaction_id =pk).first().delete()
     return redirect('home')
 
+@login_required()
 def complete_sale(request, pk):
     current_sale=Sales.objects.filter( transaction_id =pk).first()
     current_sale.sale_status='c'

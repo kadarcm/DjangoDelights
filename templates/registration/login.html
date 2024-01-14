@@ -1,0 +1,30 @@
+<!-- templates/registration/login.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PizzaMan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+
+<div class="container text-center">
+<h2 >Log In</h2>
+<form action="" method="post" class="w-25 mx-auto">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group p-3 border">
+            {{ field.errors }}
+            {{ field.label_tag }} <br> {{ field }}
+            {% if field.help_text %}
+              <p class="help" id="{{ field.auto_id }}_helptext">
+                {{ field.help_text|safe }}
+              </p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <input  type="submit" value="Submit">
+</form>
+</div>
+</body>
