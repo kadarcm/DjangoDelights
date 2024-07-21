@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-0-v+^qhe%(dakiqhg066+p$r=5pjl(zdbu!8n!t^fq2pi)wl#2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -118,7 +118,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_ROOT = "/home/chris/DJstatic"
+STATIC_URL = "/djstatic/"
 LOGIN_REDIRECT_URL = "/pizzaman/"
 LOGOUT_REDIRECT_URL = "/pizzaman/"
 
@@ -126,4 +127,5 @@ LOGOUT_REDIRECT_URL = "/pizzaman/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
+USE_X_FORWARDED_HOST = True
+FORCE_SCRIPT_NAME = '/dj'

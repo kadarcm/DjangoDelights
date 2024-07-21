@@ -16,10 +16,10 @@ from .forms import *
 # Create your views here.
 
 def home(request):
-    return render(request, 'pizzaman\\home.html')
+    return render(request, 'pizzaman/home.html')
 
 def about(request):
-    return render(request, 'pizzaman\\about.html')
+    return render(request, 'pizzaman/about.html')
 
 class InventoryListView(ListView):
     template_name= "pizzaman/inventory.html"
@@ -70,7 +70,7 @@ def menu_recipe(request, menu_pk):
             new_item.save()
         form.clean()
     
-    return render(request, template_name='pizzaman\\recipe.html', context=context)
+    return render(request, template_name='pizzaman/recipe.html', context=context)
 
 @login_required()
 def sale_view(request):
