@@ -109,6 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # from django.core.urlresolvers import reverse_lazy
 # LOGIN_URL = reverse_lazy('my_app.views.sign_in')
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -130,11 +131,14 @@ if not DEBUG:
     DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
     USE_X_FORWARDED_HOST = True
     FORCE_SCRIPT_NAME = '/dj'
+    LOGIN_URL ="/dj/accounts/login/"
+
 LOGIN_REDIRECT_URL = "/pizzaman/"
 LOGOUT_REDIRECT_URL = "/pizzaman/"
 
 if DEBUG:
     STATIC_URL = "/static/"
+    LOGIN_URL ="/accounts/login/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
