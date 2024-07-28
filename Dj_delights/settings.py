@@ -132,6 +132,7 @@ if not DEBUG:
     USE_X_FORWARDED_HOST = True
     FORCE_SCRIPT_NAME = '/dj'
     LOGIN_URL ="/dj/accounts/login/"
+    CSRF_TRUSTED_ORIGINS = ["https://myserver.kadarcm.com", "https://www.myserver.kadarcm.com"]
 
 LOGIN_REDIRECT_URL = "/pizzaman/"
 LOGOUT_REDIRECT_URL = "/pizzaman/"
